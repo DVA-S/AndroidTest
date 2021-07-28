@@ -1,7 +1,7 @@
-准备：
-	必须先找到手机开机图片的偏移量
+准备：（为了找到手机开机图片的偏移量）
 	方法一：
 	# adb shell
+	
 	~ # find / -name splash
 	find: /sys/kernel/slab/L2TP/IPv6: No such file or directory
 	find: /sys/kernel/slab/L2TP/IP: No such file or directory
@@ -18,8 +18,10 @@
 	/sdcard/splash.img
 	
 	~ # exit
+	
 	root@ubuntu:/mnt/hgfs/Ubuntu/开机第一屏# adb pull /sdcard/splash.img .
 	/sdcard/splash.img: 1 file pulled. 25.4 MB/s (67108864 bytes in 2.520s)
+	
 	root@ubuntu:/mnt/hgfs/Ubuntu/开机第一屏# binwalk splash.img
 	DECIMAL       HEXADECIMAL     DESCRIPTION
 	--------------------------------------------------------------------------------
@@ -42,6 +44,7 @@
 	34517445      0x20EB1C5       Boot section Start 0x10101021 End 0x0
 	找到所有的“PC bitmap, Windows 3.x format,, 1080 x 2340 x 24”
 	他们分别对应的“HEXADECIMAL”值（图片的开始位置分别是0x4000、0x73EFD8、0xE79FAE、0x15B4F84），将他们分别赋值给genlogo.py中的offset1~4
+	
 	方法二：
 	下载你手机的刷机包，在里面找到splash.img
     
